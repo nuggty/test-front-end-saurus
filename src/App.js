@@ -19,16 +19,19 @@ function App() {
 
 
   const [data, setData] = useState([])
-  const [dataSelected, setDataSelected] = useState()
+  const [dataSelected, setDataSelected] = useState({
+    id:'d5954570-1a24-11ec-890a-357ed7be30b6',
+    descricao: "Serviços de Beleza"
+})
   const [finalizar, setFinalizar] = useState(true)
   const [textSearch, setTextSearch] = useState('bonito')
 
   console.log(dataSelected)
 
   const getData = async () => {
-    await axios('https://apisaurussegmentos.azurewebsites.net/api/segmentos')
+    await axios(`https://apisaurussegmentos.azurewebsites.net/api/segmentos?Descricao=${textSearch}&TemFiltro=true`)
       .then(res => {
-        console.log(res.data.list)
+        console.log(res.data)
         setData(res.data.list)
       })
       .catch(err => console.log(err))
@@ -36,7 +39,7 @@ function App() {
 
   useEffect(() => {
     getData()
-  }, [])
+  }, [textSearch])
 
   return (
     <>
